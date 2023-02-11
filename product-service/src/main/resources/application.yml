@@ -1,0 +1,24 @@
+server:
+    port: 8081
+spring:
+    application:
+        name: product-service
+    data:
+        mongodb:
+            uri: mongodb://root:toor@localhost:27017/?authSource=admin&authMechanism=SCRAM-SHA-1
+            database: product-service
+    mvc:
+        path-match:
+            matching-strategy: ant_path_matcher
+    messages:
+        basename: i18n/messages
+        encoding: UTF-8
+        fallback-to-system-locale: true
+        use-code-as-default-message: true
+        always-use-message-format: false
+        cache-duration: 1
+    jackson:
+        date-format: MM.dd.yyyy. HH:mm
+i18n:
+    locale:
+        supported: hr, de
