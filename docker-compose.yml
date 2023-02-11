@@ -1,0 +1,93 @@
+version: '3'
+
+services:
+    mongo:
+        image: mongo
+        environment:
+            MONGO_INITDB_ROOT_USERNAME: root
+            MONGO_INITDB_ROOT_PASSWORD: toor
+        volumes:
+            - mongo:/data/mongo
+        ports:
+            - "27017:27017"
+        networks:
+            - mongo
+        restart: unless-stopped
+
+    mongo-express:
+        image: mongo-express
+        environment:
+            ME_CONFIG_MONGODB_SERVER: mongo
+            ME_CONFIG_MONGODB_ADMINUSERNAME: root
+            ME_CONFIG_MONGODB_ADMINPASSWORD: toor
+        volumes:
+            - mongo:/var/lib/mongo
+        ports:
+            - "8085:8081"
+        networks:
+            - mongo
+        restart: unless-stopped
+
+    postgres:
+        container_name: postgres
+        image: postgres
+        environment:
+            POSTGRES_USER: postgres
+            POSTGRES_PASSWORD: postgres
+            PGDATA: /data/postgres
+        volumes:
+            - postgres:/data/postgres
+        ports:
+            - "5432:5432"
+        networks:
+            - postgres
+        restart: unless-stopped
+
+    pgadmin:
+        container_name: pgadmin
+        image: dpage/pgadmin4
+        environment:
+            PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL:-pgadmin4@pgadmin.org}
+            PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD:-admin}
+            PGADMIN_CONFIG_SERVER_MODE: 'False'
+        volumes:
+            - pgadmin:/var/lib/pgadmin
+        ports:
+            - "5050:80"
+        networks:
+            - postgres
+        restart: unless-stopped
+
+    sonarqube:
+        image: sonarqube
+        environment:
+            - sonar.jdbc.url=jdbc:postgresql://postgres:5432/sonar
+            - sonar.jdbc.username=postgres
+            - sonar.jdbc.password=postgres
+        volumes:
+            - sonarqube_conf:/opt/sonarqube/conf
+            - sonarqube_data:/opt/sonarqube/data
+            - sonarqube_extensions:/opt/sonarqube/extensions
+            - sonarqube_bundled-plugins:/opt/sonarqube/lib/bundled-plugins
+        ports:
+            - "9000:9000"
+        networks:
+            - sonarnet
+        restart: unless-stopped
+
+networks:
+    mongo:
+        driver: bridge
+    postgres:
+        driver: bridge
+    sonarnet:
+        driver: bridge
+
+volumes:
+    mongo:
+    postgres:
+    pgadmin:
+    sonarqube_conf:
+    sonarqube_data:
+    sonarqube_extensions:
+    sonarqube_bundled-plugins:
