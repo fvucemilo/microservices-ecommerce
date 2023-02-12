@@ -12,7 +12,7 @@
     <artifactId>product-service</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>product-service</name>
-    <description>productEntity-service</description>
+    <description>product-service</description>
     <packaging>jar</packaging>
 
     <properties>
@@ -27,15 +27,15 @@
         <maven-surefire-plugin.version>3.0.0-M8</maven-surefire-plugin.version>
         <jacoco-maven-plugin.version>0.8.8</jacoco-maven-plugin.version>
         <project.test.result.directory>${project.build.directory}/test-results</project.test.result.directory>
-        <sonar.host.url></sonar.host.url>
-        <sonar.projectKey></sonar.projectKey>
-        <sonar.login></sonar.login>
+        <sonar.host.url>http://localhost:9000</sonar.host.url>
+        <sonar.projectKey>lFFosVu5x0TkcHfI5hiQ0ob1YRda5J7x</sonar.projectKey>
+        <sonar.login>aoMR8DEW0QeDEOJC04HKUU4cd3SFAGIl</sonar.login>
         <sonar.scm.provider>git</sonar.scm.provider>
         <sonar.java.codeCoveragePlugin>jacoco</sonar.java.codeCoveragePlugin>
         <sonar.coverage.jacoco.xmlReportPaths>${project.test.result.directory}/jacoco/jacoco.xml
         </sonar.coverage.jacoco.xmlReportPaths>
         <sonar.exclusions>**/*.xml</sonar.exclusions>
-        <sonar.coverage.exclusions>**/qualitymeasurementsample/*</sonar.coverage.exclusions>
+        <sonar.coverage.exclusions>**/productservice/*</sonar.coverage.exclusions>
     </properties>
 
     <dependencies>
