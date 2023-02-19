@@ -15,7 +15,7 @@ import static hr.tvz.productservice.constant.ConfigurationConstants.DEFAULT_LOCA
  * A class representing localization configuration.
  */
 @Configuration
-public class LocalizationConfiguration {
+public class I18nConfiguration {
 
     @Value("${i18n.locale.supported}")
     private List<String> supportedLocales;
