@@ -2,11 +2,14 @@ package hr.tvz.productservice.model.dto;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import hr.tvz.productservice.exception.MessagedException;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.lang.Nullable;
 
 import java.util.Map;
+
+import static hr.tvz.productservice.exception.ExceptionType.BAD_CONVERSION;
 
 /**
  * A class representing DTO exception message response body.
@@ -51,7 +54,7 @@ public class MessagedExceptionDto {
             this.additionalParameters = new ObjectMapper().writeValueAsString(additionalParameters);
         } catch (JsonProcessingException e) {
             log.error("Exception: ", e);
-            throw new RuntimeException(e);
+            throw new MessagedException(BAD_CONVERSION, e.getMessage());
         }
     }
 
